@@ -61,11 +61,11 @@ exports.getAllConfigs = async(key) => {
     }
 }
 
-exports.insertSwapTransaction = async (buyTx, sellTx, time, suilost) => {
+exports.insertSwapTransaction = async (buyTx, sellTx, time, tradeamount, suibalanceinitial, suibalanceafterbuy, suibalanceaftersell, suilost) => {
     try {
         const rows = await db.query(
-            "INSERT INTO swaptransactions (buytx, selltx, time, suilost) VALUES ($1, $2, $3, $4);",
-            [buyTx, sellTx, time, suilost]
+            "INSERT INTO swaptransactions (buytx, selltx, time, tradeamount, suibalanceinitial, suibalanceafterbuy, suibalanceaftersell, suilost) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);",
+            [buyTx, sellTx, time, tradeamount, suibalanceinitial, suibalanceafterbuy, suibalanceaftersell, suilost]
         );
         return rows;
     } catch (err) {

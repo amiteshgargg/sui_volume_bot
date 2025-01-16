@@ -18,5 +18,9 @@ CREATE TABLE swaptransactions (
     buytx TEXT NOT NULL,                      -- Public key
     selltx TEXT NOT NULL,                     -- Private key
 	time TEXT NOT NULL,
-	sui TEXT NOT NULL
+	tradeamount TEXT NOT NULL,
+	suibalanceinitial TEXT NOT NULL,
+	suibalanceafterbuy TEXT NOT NULL,
+	suibalanceaftersell TEXT NOT NULL,
+	suilost TEXT NOT NULL
 );

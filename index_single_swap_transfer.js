@@ -77,12 +77,18 @@ const initiateSwapping = async (mainWallet, config) => {
         console.log(`Initiating Swaps on both sides for wallet: ${mainWallet.publickey}`);
         const signer = createSignerWithSecretKey(mainWallet?.privatekey);
 
+        const tradeAmount = (Math.floor(Math.random() * (Number(config?.maxTradeAmount)*10**Number(config?.suiTokenDecimals) - Number(config?.minTradeAmount)*10**Number(config?.suiTokenDecimals) + 1)) + Number(config?.minTradeAmount)*10**Number(config?.suiTokenDecimals));
+
 
         const [nativeTokenBalance, otherTokenBalance] = await Promise.all([getBalance(mainWallet?.publickey, config?.suiTokenAddress), getBalance(mainWallet?.publickey, config?.otherTokenAddress)]);
         console.log(`Total Balance Now 1: Sui token: ${nativeTokenBalance}, other token: ${otherTokenBalance}`);
+
+        if(nativeTokenBalance < (Number(config?.maxTradeAmount) + Number(config?.amountToBalanceBuffer))*10**Number(config?.suiTokenDecimals)) {
+            throw new Error("Balance has gone below max trade value plus buffer");
+        }
        
         const start = new Date()
-        const buyTx = await swap(config?.poolAddress, Number(config?.tradeAmount), Number(config?.slippage), config?.otherTokenAddress, true, signer, mainWallet?.publickey, nativeTokenBalance, nativeTokenBalance, config);
+        const buyTx = await swap(config?.poolAddress, Number(tradeAmount), Number(config?.slippage), config?.otherTokenAddress, true, signer, mainWallet?.publickey, nativeTokenBalance, nativeTokenBalance, config);
         console.log(`Transaction Signature: ${buyTx}`);
 
         const [newNativeTokenBalance1, newOtherTokenBalance1] = await Promise.all([getBalance(mainWallet?.publickey, config?.suiTokenAddress), getBalance(mainWallet?.publickey, config?.otherTokenAddress)]);
@@ -102,7 +108,7 @@ const initiateSwapping = async (mainWallet, config) => {
         //     sellTx: sellTx,
         //     timeTaken: end - start
         // }], './assets/transactions.json');
-        await insertSwapTransaction(buyTx, sellTx, end-start, ((newNativeTokenBalance2-nativeTokenBalance)/10**9).toString());
+        await insertSwapTransaction(buyTx, sellTx, end-start, (tradeAmount/10**9).toString(), (nativeTokenBalance/10**9).toString(), (newNativeTokenBalance1/10**9).toString(), (newNativeTokenBalance2/10**9).toString(), ((newNativeTokenBalance2-nativeTokenBalance)/10**9).toString());
     }
 
     console.log("Initiating collection of funds and generating on new wallets");
