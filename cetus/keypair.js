@@ -1,5 +1,4 @@
 const { Ed25519Keypair } = require("@mysten/sui/keypairs/ed25519");
-const config = require("../config");
 
 exports.createSigner = (mnemonic) => {
 

@@ -2,7 +2,7 @@ const { SuiClient, getFullnodeUrl } = require("@mysten/sui/client");
 const { initCetusSDK, adjustForSlippage, Percentage, d, CetusClmmSDK, TransactionUtil } = require('@cetusprotocol/cetus-sui-clmm-sdk');
 const bn = require('bn.js')
 const { createSigner, createSignerWithSecretKey } = require("./keypair");
-const config = require("../config");
+// const config = require("../config");
 const { Transaction } = require("@mysten/sui/transactions");
 
 const cetusClmmSDK = initCetusSDK({ network: 'mainnet', fullNodeUrl: "https://fullnode.mainnet.sui.io:443", simulationAccount: "0xb225f7b2d4676ae8f691cbf6fcf8b32d75b55531e87fb806f5a7fffe64b52876" });
@@ -11,16 +11,16 @@ const cetusClmmSDK = initCetusSDK({ network: 'mainnet', fullNodeUrl: "https://fu
 const suiClient = new SuiClient({ url: getFullnodeUrl('mainnet') });
 
 //keep token address fixed as other token address, never sui token address
-exports.swap = async (poolAddress, amountIn, slippage, tokenAddress, isBuy, signer, senderAddress, tokenBalance, nativeTokenBalance) => {
+exports.swap = async (poolAddress, amountIn, slippage, tokenAddress, isBuy, signer, senderAddress, tokenBalance, nativeTokenBalance, config) => {
     cetusClmmSDK.senderAddress = senderAddress;
     let amountToSend = 0;
     if (tokenAddress === config?.suiTokenAddress) {
-        const amountEligibleForSending = nativeTokenBalance - config?.swapGasFee;
+        const amountEligibleForSending = nativeTokenBalance - Number(config?.swapGasFee);
         amountToSend = amountIn > amountEligibleForSending ? amountIn : amountEligibleForSending;
     } else {
 
         amountToSend = tokenBalance >= amountIn ? amountIn : tokenBalance;
-        if (nativeTokenBalance < config?.swapGasFee) {
+        if (nativeTokenBalance < Number(config?.swapGasFee)) {
             throw new Error("Insufficient funds in wallet for swap");
         }
     }
@@ -269,6 +269,6 @@ const batchSwap = async (poolAddress, amountIn, slippage, tokenAddress, isBuy, s
 
 }
 
-const signer = createSigner(config?.baseMnemonic);
+// const signer = createSigner(config?.baseMnemonic);
 
-const buyTx = batchSwap("0xb785e6eed355c1f8367c06d2b0cb9303ab167f8359a129bb003891ee54c6fce0", config?.tradeAmount, config?.slippage, config?.otherTokenAddress, true, signer, config?.baseAddress, 1000000000, 1000000000);
+// const buyTx = batchSwap("0xb785e6eed355c1f8367c06d2b0cb9303ab167f8359a129bb003891ee54c6fce0", config?.tradeAmount, config?.slippage, config?.otherTokenAddress, true, signer, config?.baseAddress, 1000000000, 1000000000);

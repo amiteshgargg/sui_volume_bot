@@ -1,6 +1,5 @@
 const { SuiClient, getFullnodeUrl } = require("@mysten/sui/client");
 const { Transaction, coinWithBalance } = require("@mysten/sui/transactions");
-const config = require("../config");
 const { createSigner, createSignerWithSecretKey } = require("./keypair");
 
 const suiClient = new SuiClient({ url: getFullnodeUrl('mainnet') });

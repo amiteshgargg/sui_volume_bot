@@ -25,9 +25,9 @@ const query = async (query, params) => {
     if (!pool) {
       initialize();
     }
-    console.log(query, params);
+    // console.log(query, params);
     const { rows, fields } = await pool.query(query, params);
-    console.log("Fetched rows: ", rows);
+    // console.log("Fetched rows: ", rows);
     if (!rows) {
       return [];
     }

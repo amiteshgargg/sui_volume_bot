@@ -1,0 +1,22 @@
+CREATE TABLE wallets (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    public_key TEXT NOT NULL,
+    private_key TEXT NOT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE config (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    key TEXT NOT NULL,
+    value TEXT NOT NULL
+);
+
+CREATE TABLE swaptransactions (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,  -- UUID as the primary key
+    buytx TEXT NOT NULL,                      -- Public key
+    selltx TEXT NOT NULL,                     -- Private key
+	time TEXT NOT NULL,
+	sui TEXT NOT NULL
+);

@@ -1,9 +1,9 @@
 require("dotenv").config();
 
 module.exports = {
-    PGUSER: process.env.POSTGRES_USER,
-    PGHOST: process.env.POSTGRES_HOST,
-    PGPASSWORD: process.env.POSTGRES_PASSWORD,
-    PGDATABASE: process.env.POSTGRES_DATABASE,
-    PGPORT: process.env.POSTGRES_PORT,
+    PGUSER: process.env.ENV === "local" ? "postgres" : "volumebot",
+    PGHOST:  "localhost",
+    PGPASSWORD:  process.env.ENV === "local" ? "1234" : "volumebot",
+    PGDATABASE:  process.env.ENV === "local" ? "volumebot" : "volumebot",
+    PGPORT: 5432,
   };

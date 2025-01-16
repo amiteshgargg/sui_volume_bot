@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=dev node index_single_swap_transfer.js",
+    "start": "nodemon index_single_swap_transfer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,6 +14,8 @@
     "@mysten/sui": "^1.18.0",
     "bignumber.js": "^9.1.2",
     "bn.js": "^5.2.1",
+    "dotenv": "^16.4.7",
+    "nodemon": "^3.1.9",
     "pg": "^8.13.1"
   }
 }

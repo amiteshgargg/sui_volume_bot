@@ -9,9 +9,6 @@ module.exports = {
     slippage: 0.1, //swap slippage
     globalRecursionCount: 2, //number of times to fully run the loop of creating wallets and executing swaps, set -1 for infinite
     walletCount: 2, //number of wallets to generate
-    walletFilePath: './assets/wallets.json', //wallets saving path
-    mainWalletFilePath: './assets/mainWallets.json', //parent wallets saving path
-
     tradeCountPerWallet: 2, //number of times to reuse a wallet
     swapGasFee: 3889592, //swap gas fee
     transferGasFee: 3476000, //transfer gas fee
@@ -19,6 +16,9 @@ module.exports = {
     maxNewTradeTime: 15, //max seconds for next trade cycle
     leaveNativeTokenPercent: 0, //leave some swap token in generated wallets
     leftAmountWhenleaveNativeTokenPercent: 6000000,
+
+    walletFilePath: './assets/wallets.json', //wallets saving path
+    mainWalletFilePath: './assets/mainWallets.json', //parent wallets saving path
 
     // changeMainWalletRecursion: 2//change main wallet after how many recursions
 
