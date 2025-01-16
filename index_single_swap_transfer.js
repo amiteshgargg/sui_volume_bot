@@ -150,6 +150,10 @@ const runVolumeBot = async () => {
     let globalCount = 0;
     let globalRecursionCount = Number(dbJson?.globalRecursionCount);
     while (globalCount < globalRecursionCount) {
+        if(dbJson?.status === '0') {
+            console.log("Config is paused, Waiting 1 min");
+            await sleep(60000);
+        }
         console.log("Initiating Swaps");
 
         const updatedData = await initiateSwapping(mainWallet, dbJson);
@@ -169,6 +173,7 @@ const runVolumeBot = async () => {
             acc[key] = value;
             return acc;
         }, {});
+        globalRecursionCount = Number(dbJson?.globalRecursionCount);
 
     }
 
