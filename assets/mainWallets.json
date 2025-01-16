@@ -1,0 +1,17 @@
+[
+    {
+        "privateKey": "suiprivkey1qryqjg0ey0masdptk8ryz3xztlykns7wn4wr45hm6ztdxvp5ptgqqlqsdqr",
+        "publicKey": "0xfeb072be25a92882b5c3905b1a6c1ec4d0e8c5cee30e1e335066c0c813cdb78b",
+        "isActive": false
+    },
+    {
+        "privateKey": "suiprivkey1qz53t83eupdq5z7w2s6pae8r80udznzfpjjycw7t3rz0dvztwp56xl638xw",
+        "publicKey": "0x1512dc6fc5dc1ae57039033ec2d642bd1c41d8177e89226177ab63f2706a9dde",
+        "isActive": false
+    },
+    {
+        "privateKey": "suiprivkey1qq495n3jxd79r29u3zez49ncdzt2df8y34hfs22s3h2ecqyclfvlxv873jx",
+        "publicKey": "0xebddb2e2ed3563d455f6d9ee91b84b897ef2d56eb6290241c3dd90d12982c5b0",
+        "isActive": true
+    }
+]
