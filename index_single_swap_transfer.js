@@ -69,6 +69,7 @@ const retrievingFunds = async (wallet, mainWallet, config) => {
 
 
 const initiateSwapping = async (mainWallet, config) => {
+    console.log(mainWallet)
     for (let k = 0; k < Number(config?.tradeCountPerWallet); k++) {
         const time = (Math.floor(Math.random() * (Number(config?.maxNewTradeTime) - Number(config?.minNewTradeTime) + 1)) + Number(config?.minNewTradeTime)) * 1000;
         console.log(`Sleeping for ${time}`);
@@ -155,6 +156,7 @@ const runVolumeBot = async () => {
             await sleep(60000);
         }
         console.log("Initiating Swaps");
+        console.log(mainWallet)
 
         const updatedData = await initiateSwapping(mainWallet, dbJson);
         
@@ -162,7 +164,7 @@ const runVolumeBot = async () => {
 
         globalCount++;
         console.log(updatedData?.newMainWallet)
-        console.log(updatedData);
+        // console.log(updatedData);
         mainWallet = updatedData?.newMainWallet;
         const dbConfigs2 = await getAllConfigs();
         if (dbConfigs2.length <= 0) {
