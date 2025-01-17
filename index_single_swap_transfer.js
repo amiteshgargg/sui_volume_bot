@@ -157,6 +157,10 @@ const runVolumeBot = async () => {
         }
         console.log("Initiating Swaps");
         // console.log(mainWallet)
+        if(mainWallet?.publickey) {
+            mainWallet.publicKey = mainWallet?.publickey;
+            mainWallet.privateKey = mainWallet?.privatekey
+        }
 
         const updatedData = await initiateSwapping(mainWallet, dbJson);
         
