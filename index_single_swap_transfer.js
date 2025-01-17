@@ -69,19 +69,19 @@ const retrievingFunds = async (wallet, mainWallet, config) => {
 
 
 const initiateSwapping = async (mainWallet, config) => {
-    console.log(mainWallet)
+    // console.log(mainWallet)
     for (let k = 0; k < Number(config?.tradeCountPerWallet); k++) {
         const time = (Math.floor(Math.random() * (Number(config?.maxNewTradeTime) - Number(config?.minNewTradeTime) + 1)) + Number(config?.minNewTradeTime)) * 1000;
         console.log(`Sleeping for ${time}`);
         
         await sleep(time);
-        console.log(`Initiating Swaps on both sides for wallet: ${mainWallet.publickey}`);
-        const signer = createSignerWithSecretKey(mainWallet?.privatekey);
+        console.log(`Initiating Swaps on both sides for wallet: ${mainWallet.publicKey}`);
+        const signer = createSignerWithSecretKey(mainWallet?.privateKey);
 
         const tradeAmount = (Math.floor(Math.random() * (Number(config?.maxTradeAmount)*10**Number(config?.suiTokenDecimals) - Number(config?.minTradeAmount)*10**Number(config?.suiTokenDecimals) + 1)) + Number(config?.minTradeAmount)*10**Number(config?.suiTokenDecimals));
 
 
-        const [nativeTokenBalance, otherTokenBalance] = await Promise.all([getBalance(mainWallet?.publickey, config?.suiTokenAddress), getBalance(mainWallet?.publickey, config?.otherTokenAddress)]);
+        const [nativeTokenBalance, otherTokenBalance] = await Promise.all([getBalance(mainWallet?.publicKey, config?.suiTokenAddress), getBalance(mainWallet?.publicKey, config?.otherTokenAddress)]);
         console.log(`Total Balance Now 1: Sui token: ${nativeTokenBalance}, other token: ${otherTokenBalance}`);
 
         if(nativeTokenBalance < (Number(config?.maxTradeAmount) + Number(config?.amountToBalanceBuffer))*10**Number(config?.suiTokenDecimals)) {
@@ -89,7 +89,7 @@ const initiateSwapping = async (mainWallet, config) => {
         }
        
         const start = new Date()
-        const buyTx = await swap(config?.poolAddress, Number(tradeAmount), Number(config?.slippage), config?.otherTokenAddress, true, signer, mainWallet?.publickey, nativeTokenBalance, nativeTokenBalance, config);
+        const buyTx = await swap(config?.poolAddress, Number(tradeAmount), Number(config?.slippage), config?.otherTokenAddress, true, signer, mainWallet?.publicKey, nativeTokenBalance, nativeTokenBalance, config);
         console.log(`Transaction Signature: ${buyTx}`);
 
         const [newNativeTokenBalance1, newOtherTokenBalance1] = await Promise.all([getBalance(mainWallet?.publickey, config?.suiTokenAddress), getBalance(mainWallet?.publickey, config?.otherTokenAddress)]);
@@ -99,7 +99,7 @@ const initiateSwapping = async (mainWallet, config) => {
         console.log(`Transaction Signature: ${sellTx}`);
         const end = new Date();
 
-        const [newNativeTokenBalance2, newOtherTokenBalance2] = await Promise.all([getBalance(mainWallet?.publickey, config?.suiTokenAddress), getBalance(mainWallet?.publickey, config?.otherTokenAddress)]);
+        const [newNativeTokenBalance2, newOtherTokenBalance2] = await Promise.all([getBalance(mainWallet?.publicKey, config?.suiTokenAddress), getBalance(mainWallet?.publicKey, config?.otherTokenAddress)]);
         console.log(`Total Balance Now 3: Sui token: ${newNativeTokenBalance2}, other token: ${newOtherTokenBalance2}`);
 
 
@@ -156,14 +156,14 @@ const runVolumeBot = async () => {
             await sleep(60000);
         }
         console.log("Initiating Swaps");
-        console.log(mainWallet)
+        // console.log(mainWallet)
 
         const updatedData = await initiateSwapping(mainWallet, dbJson);
         
         console.log("[Done]: ", globalCount);
 
         globalCount++;
-        console.log(updatedData?.newMainWallet)
+        // console.log(updatedData?.newMainWallet)
         // console.log(updatedData);
         mainWallet = updatedData?.newMainWallet;
         const dbConfigs2 = await getAllConfigs();
