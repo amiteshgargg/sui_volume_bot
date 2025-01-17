@@ -49,18 +49,18 @@ const generateNewMainWallet = async () => {
 
 const retrievingFunds = async (wallet, mainWallet, config) => {
     // console.log("Initiating ", wallets.length)
-    const balance = await getBalance(wallet?.publickey, config?.suiTokenAddress);
+    const balance = await getBalance(wallet?.publicKey, config?.suiTokenAddress);
     console.log("Balance: ", balance);
     console.log(Number(subtractBigNumber(balance.toString(), config?.transferGasFee.toString())));
     // console.log(mainWallet, wallet)
-    // const tx = await transfer(wallets[i]?.publickey, config?.baseAddress, config?.suiTokenAddress, Number(balance.toString()), createSignerWithSecretKey(wallets[i].privatekey));
+    // const tx = await transfer(wallets[i]?.publicKey, config?.baseAddress, config?.suiTokenAddress, Number(balance.toString()), createSignerWithSecretKey(wallets[i].privatekey));
     let tx;
     if (Number(config?.leaveNativeTokenPercent) > 0) {
-        tx = await transfer(wallet?.publickey, mainWallet?.publicKey, config?.suiTokenAddress, Number(subtractBigNumber(balance.toString(), config?.leftAmountWhenleaveNativeTokenPercent.toString())), createSignerWithSecretKey(wallet.privatekey));
+        tx = await transfer(wallet?.publicKey, mainWallet?.publicKey, config?.suiTokenAddress, Number(subtractBigNumber(balance.toString(), config?.leftAmountWhenleaveNativeTokenPercent.toString())), createSignerWithSecretKey(wallet.privatekey));
     } else {
-        tx = await transfer(wallet?.publickey, mainWallet?.publicKey, config?.suiTokenAddress, Number(subtractBigNumber(balance.toString(), config?.transferGasFee.toString())), createSignerWithSecretKey(wallet.privatekey));
+        tx = await transfer(wallet?.publicKey, mainWallet?.publicKey, config?.suiTokenAddress, Number(subtractBigNumber(balance.toString(), config?.transferGasFee.toString())), createSignerWithSecretKey(wallet.privatekey));
     }
-    console.log(`Transferred ${tx} from wallet ${wallet.publickey}`);
+    console.log(`Transferred ${tx} from wallet ${wallet.publicKey}`);
     wallet.isactive = false;
 
     // console.log(wallets)
