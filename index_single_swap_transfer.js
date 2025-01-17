@@ -92,10 +92,10 @@ const initiateSwapping = async (mainWallet, config) => {
         const buyTx = await swap(config?.poolAddress, Number(tradeAmount), Number(config?.slippage), config?.otherTokenAddress, true, signer, mainWallet?.publicKey, nativeTokenBalance, nativeTokenBalance, config);
         console.log(`Transaction Signature: ${buyTx}`);
 
-        const [newNativeTokenBalance1, newOtherTokenBalance1] = await Promise.all([getBalance(mainWallet?.publickey, config?.suiTokenAddress), getBalance(mainWallet?.publickey, config?.otherTokenAddress)]);
+        const [newNativeTokenBalance1, newOtherTokenBalance1] = await Promise.all([getBalance(mainWallet?.publicKey, config?.suiTokenAddress), getBalance(mainWallet?.publicKey, config?.otherTokenAddress)]);
         console.log(`Total Balance Now 2: Sui token: ${newNativeTokenBalance1}, other token: ${newOtherTokenBalance1}`);
 
-        const sellTx = await swap(config?.poolAddress, Math.floor(Number(subtractBigNumber(newOtherTokenBalance1.toString(), (newOtherTokenBalance1 * (Number(config?.leaveNativeTokenPercent) / 100)).toString()))), Number(config?.slippage), config?.otherTokenAddress, false, signer, mainWallet?.publickey, newOtherTokenBalance1, newNativeTokenBalance1, config);
+        const sellTx = await swap(config?.poolAddress, Math.floor(Number(subtractBigNumber(newOtherTokenBalance1.toString(), (newOtherTokenBalance1 * (Number(config?.leaveNativeTokenPercent) / 100)).toString()))), Number(config?.slippage), config?.otherTokenAddress, false, signer, mainWallet?.publicKey, newOtherTokenBalance1, newNativeTokenBalance1, config);
         console.log(`Transaction Signature: ${sellTx}`);
         const end = new Date();
 
