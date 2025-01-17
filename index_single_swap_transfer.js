@@ -161,7 +161,8 @@ const runVolumeBot = async () => {
         console.log("[Done]: ", globalCount);
 
         globalCount++;
-        
+        console.log(updatedData?.newMainWallet)
+        console.log(updatedData);
         mainWallet = updatedData?.newMainWallet;
         const dbConfigs2 = await getAllConfigs();
         if (dbConfigs2.length <= 0) {
