@@ -56,9 +56,9 @@ const retrievingFunds = async (wallet, mainWallet, config) => {
     // const tx = await transfer(wallets[i]?.publicKey, config?.baseAddress, config?.suiTokenAddress, Number(balance.toString()), createSignerWithSecretKey(wallets[i].privatekey));
     let tx;
     if (Number(config?.leaveNativeTokenPercent) > 0) {
-        tx = await transfer(wallet?.publicKey, mainWallet?.publicKey, config?.suiTokenAddress, Number(subtractBigNumber(balance.toString(), config?.leftAmountWhenleaveNativeTokenPercent.toString())), createSignerWithSecretKey(wallet.privatekey));
+        tx = await transfer(wallet?.publicKey, mainWallet?.publicKey, config?.suiTokenAddress, Number(subtractBigNumber(balance.toString(), config?.leftAmountWhenleaveNativeTokenPercent.toString())), createSignerWithSecretKey(wallet.privateKey));
     } else {
-        tx = await transfer(wallet?.publicKey, mainWallet?.publicKey, config?.suiTokenAddress, Number(subtractBigNumber(balance.toString(), config?.transferGasFee.toString())), createSignerWithSecretKey(wallet.privatekey));
+        tx = await transfer(wallet?.publicKey, mainWallet?.publicKey, config?.suiTokenAddress, Number(subtractBigNumber(balance.toString(), config?.transferGasFee.toString())), createSignerWithSecretKey(wallet.privateKey));
     }
     console.log(`Transferred ${tx} from wallet ${wallet.publicKey}`);
     wallet.isactive = false;
