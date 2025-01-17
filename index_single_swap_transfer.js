@@ -171,9 +171,11 @@ const runVolumeBot = async () => {
             acc[key] = value;
             return acc;
         }, {});
-        globalRecursionCount = Number(dbJson?.globalRecursionCount);
+        // globalRecursionCount = Number(dbJson?.globalRecursionCount);
         if (Number(dbJson?.globalRecursionCount) === 9999) {
             globalRecursionCount += 1;
+        } else {
+            globalRecursionCount = Number(dbJson?.globalRecursionCount);
         }
 
     }
