@@ -161,9 +161,7 @@ const runVolumeBot = async () => {
         console.log("[Done]: ", globalCount);
 
         globalCount++;
-        if (Number(dbJson?.globalRecursionCount) === 9999) {
-            globalRecursionCount += 1;
-        }
+        
         mainWallet = updatedData?.newMainWallet;
         const dbConfigs2 = await getAllConfigs();
         if (dbConfigs2.length <= 0) {
@@ -174,6 +172,9 @@ const runVolumeBot = async () => {
             return acc;
         }, {});
         globalRecursionCount = Number(dbJson?.globalRecursionCount);
+        if (Number(dbJson?.globalRecursionCount) === 9999) {
+            globalRecursionCount += 1;
+        }
 
     }
 
